@@ -1,0 +1,94 @@
+#movies {
+    border: 3px solid rgba(57,129,169,1);
+    border-radius: 10px;
+    width: 50%;
+    
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+  
+#movies > h1 {
+    margin: 10px 0px 0px 0px;
+    padding: 10px 20px 5px 30px;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+  
+.addMovie {
+    padding: 10px 15px;
+}
+  
+#movieList {
+    padding: 0px;
+    margin: 0px;
+}
+  
+#movieList > li {
+    display: flex;
+    align-items: center;
+  
+    padding: 10px 5px;
+    margin: 0px;
+    list-style: none;
+}
+  
+#movieList > li > label {
+    padding: 5px 10px;
+}
+
+  
+#movieList > li >  label {
+    flex: 10;
+}
+  
+#movieList > li > input[type=text] {
+    flex: 10;
+    margin: 5px 10px;
+    
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+}
+  
+#movieList > li > button {
+    flex: 1;
+    margin: 5px;
+}
+  
+.checked > label {
+    text-decoration: line-through;
+}
+  
+.addMovie {
+    display: flex;
+    align-items: flex-end;
+}
+  
+.addMovie > input[type=text] {
+    flex: 11;
+  
+    border: none;
+    padding: 5px 1px;
+    margin: 0px;
+    font-size: 1em;
+    width: 80%;
+    border-bottom: 2px solid rgb(162, 166, 173);
+  
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  
+    transition: border linear 0.5s;
+    webkit-transition: border linear 0.5s;
+}
+  
+.addMovie input[type=text]:focus {
+    outline: none;
+    border-bottom: 2px solid rgb(114, 158, 234);
+}
+  
+.addMovie > button {  
+    margin: 5px 5px 5px 10px;
+    flex: 1;
+}
+  
+  
+#movieList li:nth-child(even) {
+    background-color: rgba(114, 158, 234, 0.3);
+}
