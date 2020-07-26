@@ -15,15 +15,30 @@ var getMovieDetails = async (movieName) => {
             <strong>Plot : </strong>${data.Plot}<br>
             <strong>IMDB Rating : </strong>${data.imdbRating}<br>
             `;
-            console.log(content);
+            // console.log(content);
             return content;
         });
     return content;
 };
 
 var deleteMovie = function () {
+    console.log(this.className);
     let todoLi = this.parentNode;
     todoLi.remove();
+};
+
+var showDetail = function () {
+    // console.log(this.className);
+    if(this.className === 'collapsible') {
+        this.className = 'active';
+        var content = this.nextElementSibling.nextElementSibling;
+        content.style.maxHeight = content.scrollHeight + "px";
+    } 
+    else {
+        this.className = 'collapsible';
+        var content = this.nextElementSibling.nextElementSibling;
+        content.style.maxHeight = null;
+    }
 };
 
 var createMovie = async function (movieName) {
@@ -36,7 +51,7 @@ var createMovie = async function (movieName) {
     var content = await getMovieDetails(movieName).then(res => res);
     let movieDetail = document.createElement('div');
     movieDetail.className = "movieDetails";
-    console.log(content);
+    // console.log(content);
     movieDetail.innerHTML = content;
 
     let deleteButton = document.createElement('button');
@@ -46,9 +61,10 @@ var createMovie = async function (movieName) {
 
 
     //nest todo elements in list item
+    movieInfo.onclick = showDetail;
     li.appendChild(movieInfo);
-    li.appendChild(movieDetail);
     li.appendChild(deleteButton);
+    li.appendChild(movieDetail);
     return li;
 };
 
@@ -68,3 +84,18 @@ document.getElementById('add').onclick = async function () {
         addTextInput.value = "";
     }
 }
+
+// var coll = document.getElementsByClassName("collapsible");
+// var i;
+
+// for (i = 0; i < coll.length; i++) {
+//   coll[i].addEventListener("click", function() {
+//     this.classList.toggle("active");
+//     var content = this.nextElementSibling;
+//     if (content.style.maxHeight){
+//       content.style.maxHeight = null;
+//     } else {
+//       content.style.maxHeight = content.scrollHeight + "px";
+//     } 
+//   });
+// }

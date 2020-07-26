@@ -23,39 +23,79 @@
 }
   
 #movieList > li {
-    display: flex;
+    /* display: flex; */
     align-items: center;
-  
+    /* width: 100%; */
     padding: 10px 5px;
     margin: 0px;
     list-style: none;
 }
   
-#movieList > li > label {
+#movieList > li > .collapsible, #movieList > li > .active {
+    display: inline-flex;
+    flex: 11;
+    align-items: flex-end; 
+    width: 80%;
     padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+    margin: 5px 10px;
+    
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    /* flex: 100; */
+}
+.delete {
+    display: inline-flex;
+    flex: 1;
 }
 
-  
-#movieList > li >  label {
-    flex: 10;
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.movieDetails {
+    /* display: inline; */
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
 }
   
-#movieList > li > input[type=text] {
+/* #movieList > li >  label {
+    flex: 10;
+} */
+  
+/* #movieList > li > input[type=text] {
     flex: 10;
     margin: 5px 10px;
     
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 1em;
-}
-  
+} */
+/*   
 #movieList > li > button {
     flex: 1;
     margin: 5px;
-}
-  
+} */
+/*   
 .checked > label {
     text-decoration: line-through;
-}
+} */
   
 .addMovie {
     display: flex;
