@@ -1,9 +1,10 @@
+const apiKey = "39167fdd";
+
 var getMovieDetails = async (movieName) => {
-    apiKey = "39167fdd";
     var content = "";
-    content = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&t=${movieName}`)
-        .then (response => response.json())
-        .then( data => {
+    content = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(movieName)}`)
+        .then(response => response.json())
+        .then(data => {
             // console.log(data);
             content = `
             <strong>Title : </strong>${data.Title}<br>
@@ -29,11 +30,11 @@ var deleteMovie = function () {
 
 var showDetail = function () {
     // console.log(this.className);
-    if(this.className === 'collapsible') {
+    if (this.className === 'collapsible') {
         this.className = 'active';
         var content = this.nextElementSibling.nextElementSibling;
         content.style.maxHeight = content.scrollHeight + "px";
-    } 
+    }
     else {
         this.className = 'collapsible';
         var content = this.nextElementSibling.nextElementSibling;
@@ -46,6 +47,7 @@ var createMovie = async function (movieName) {
 
     let movieInfo = document.createElement('button');
     movieInfo.innerHTML = movieName;
+ 
     movieInfo.className = "collapsible";
 
     var content = await getMovieDetails(movieName).then(res => res);
@@ -85,17 +87,35 @@ document.getElementById('add').onclick = async function () {
     }
 }
 
-// var coll = document.getElementsByClassName("collapsible");
-// var i;
+let suggestionsList = document.getElementById('suggestions-list');
+document.querySelector("input").addEventListener('input', (event) => {
+    event.preventDefault();
 
-// for (i = 0; i < coll.length; i++) {
-//   coll[i].addEventListener("click", function() {
-//     this.classList.toggle("active");
-//     var content = this.nextElementSibling;
-//     if (content.style.maxHeight){
-//       content.style.maxHeight = null;
-//     } else {
-//       content.style.maxHeight = content.scrollHeight + "px";
-//     } 
-//   });
-// }
+    suggestionsList.innerHTML = '';
+    if (event.target.value.length >= 3)
+    apiCall(event.target.value);
+});
+
+var apiCall = (searchValue) => {
+    console.log(searchValue);
+    url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(searchValue)}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            for(var i = 0; i < Math.min(10, data.Search.length); i++) {
+                suggestionsList.innerHTML += `
+                <li class="suggestion">
+                    <strong>${data.Search[i].Title}</strong>
+                </li>
+                `
+            }
+            var items = document.querySelectorAll(".suggestion");
+            items.forEach((item) => {
+                item.addEventListener('click', (event) => {
+                    document.querySelector('input').value = item.children[0].innerText;
+                    suggestionsList.innerHTML = '';
+                });
+            });
+        });
+};

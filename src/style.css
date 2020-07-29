@@ -52,10 +52,12 @@
 }
 
 .active, .collapsible:hover {
-    background-color: #555;
+    background-color: rgb(235, 213, 213);
 }
 
-.collapsible:after {
+/* .collapsible:after {
+    text-align: right;
+    align-self: right;
     content: '\002B';
     color: white;
     font-weight: bold;
@@ -65,7 +67,7 @@
 
 .active:after {
     content: "\2212";
-}
+} */
 
 .movieDetails {
     /* display: inline; */
@@ -73,30 +75,9 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
+    background-color: #e3fcfc;
 }
-  
-/* #movieList > li >  label {
-    flex: 10;
-} */
-  
-/* #movieList > li > input[type=text] {
-    flex: 10;
-    margin: 5px 10px;
-    
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 1em;
-} */
-/*   
-#movieList > li > button {
-    flex: 1;
-    margin: 5px;
-} */
-/*   
-.checked > label {
-    text-decoration: line-through;
-} */
-  
+
 .addMovie {
     display: flex;
     align-items: flex-end;
@@ -131,4 +112,16 @@
   
 #movieList li:nth-child(even) {
     background-color: rgba(114, 158, 234, 0.3);
+}
+
+#suggestions-list {
+    text-align: left;
+}
+
+#suggestions-list li:nth-child(even) {
+    background-color: rgba(161, 188, 235, 0.3);
+}
+
+.suggestion {
+    cursor: pointer;
 }
