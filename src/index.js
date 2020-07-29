@@ -6,7 +6,11 @@ var getMovieDetails = async (movieName) => {
         .then(response => response.json())
         .then(data => {
             // console.log(data);
-            content = `
+            if (data.Title == undefined) {
+                content = "No such movie found.";
+            }
+            else
+                content = `
             <strong>Title : </strong>${data.Title}<br>
             <strong>Year : </strong>${data.Year}<br>
             <strong>Released : </strong>${data.Released}<br>
@@ -18,6 +22,8 @@ var getMovieDetails = async (movieName) => {
             `;
             // console.log(content);
             return content;
+        }).catch(error => {
+            console.log(error);
         });
     return content;
 };
@@ -47,7 +53,7 @@ var createMovie = async function (movieName) {
 
     let movieInfo = document.createElement('button');
     movieInfo.innerHTML = movieName;
- 
+
     movieInfo.className = "collapsible";
 
     var content = await getMovieDetails(movieName).then(res => res);
@@ -82,6 +88,7 @@ document.getElementById('add').onclick = async function () {
         var list = document.getElementById('movieList');
         var movie = await createMovie(addTextInput.value);
         list.appendChild(movie);
+        document.getElementById('suggestions-list').innerHTML='';
         //reset input 
         addTextInput.value = "";
     }
@@ -93,7 +100,7 @@ document.querySelector("input").addEventListener('input', (event) => {
 
     suggestionsList.innerHTML = '';
     if (event.target.value.length >= 3)
-    apiCall(event.target.value);
+        apiCall(event.target.value);
 });
 
 var apiCall = (searchValue) => {
@@ -103,7 +110,7 @@ var apiCall = (searchValue) => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            for(var i = 0; i < Math.min(10, data.Search.length); i++) {
+            for (var i = 0; i < Math.min(10, data.Search.length); i++) {
                 suggestionsList.innerHTML += `
                 <li class="suggestion">
                     <strong>${data.Search[i].Title}</strong>
@@ -117,5 +124,7 @@ var apiCall = (searchValue) => {
                     suggestionsList.innerHTML = '';
                 });
             });
+        }).catch((error) => {
+            console.log(error);
         });
 };
